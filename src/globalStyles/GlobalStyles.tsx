@@ -6,23 +6,29 @@ export default function GlobalStyles() {
      
 
     //Pallete of colors
-    interface paletteColorsTypes {
-        red1 : string,
+    interface paletteColorsTypes 
+        { green1 : string, green2 : string, green3 : string, green4 : string }
 
+    let styles : paletteColorsTypes = { 
+        
+        green1: "#3C6E57",
+        green2: "#469B4C",
+        green3: "#7CB855",
+        green4: "#BBE06C"
+
+        
     }
 
-    let styles : paletteColorsTypes = {
-
-        //palette of colors . 
-        red1: "#D71E49",
-        //-----------
-    }
-
-    //Global Fonts
+    //-----------
+    
+    //Global Styles
     const fontStyles  = StyleSheet.create({
         customFont: {
             fontFamily: 'OpenSans-VariableFont_wdth,wght',
-        }
+        },
+        globalRadius: {
+            borderRadius : 13,
+        },
 
     })
 
@@ -30,7 +36,7 @@ export default function GlobalStyles() {
 
     //functions that returns the values of paletteOfColors, or other data.
     
-    const red1 = (): string => styles.red1;
+    const red1 = (): string => styles.green1;
 
     const globalFontFamily = () => fontStyles.customFont;
 
