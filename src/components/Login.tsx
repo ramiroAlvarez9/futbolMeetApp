@@ -1,18 +1,30 @@
 import React from "react";
 //import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import GlobalStyles from "../globalStyles/GlobalStyles";
-import { StyleSheet, View, Button, Text, TextInput } from "react-native";
-
+import { StyleSheet, View, Button, Text, Image } from "react-native";
+import BackgroundLogin from '../assets/svgImages/backgroundImageLogin.svg'
+import LogoFutMatch  from '../assets/svgImages/LogoFutbolMatch.svg'
 
 const Login: React.FC = () => {
+
   const { globalFontFamily } = GlobalStyles();
 
   const styles = StyleSheet.create({
+
+    //pixel size : 393 x 830
+    backgroundLogin : { 
+      position : 'absolute',
+      zIndex : -1,
+      height : '100%',
+      width  : '100%',
+      left   : '-10%'
+    },
     fatherView: {
-      flex: 1,
+      width: "100%",
+      height: "100%",
     },
     logoView: {
-      flex: 1,
+      height : '22.52%',
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
@@ -32,22 +44,38 @@ const Login: React.FC = () => {
   });
 
   return (
-    
-    <View style={styles.fatherView}>   
-
-      
-      <View style={styles.logoView}>
+    <>
+  
+      <View style = {styles.backgroundLogin} >
+        <BackgroundLogin 
+          width = {'100%'}
+          height = {'100%'}
+        />
       </View>
+  
+      <View 
+        style={styles.fatherView}
 
-      <View style={styles.inputsAndSubmitButtonView}>
-        <Text>2</Text>
-      </View>
+      >
 
-      <View style={styles.socialMediaView}>
-        <Text>3</Text>
+        <View style={styles.logoView}>
+
+        <LogoFutMatch 
+          width = {69}
+          height = {69}
+        />
+
+        </View>
+
+        <View style={styles.inputsAndSubmitButtonView}>
+          <Text>2</Text>
+        </View>
+
+        <View style={styles.socialMediaView}>
+          <Text>3</Text>
+        </View>
       </View>
-    
-    </View>
+    </>
   );
 };
 
