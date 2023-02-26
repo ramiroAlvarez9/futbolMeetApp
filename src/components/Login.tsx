@@ -54,35 +54,58 @@ const Login: React.FC = () => {
               leftIcon={<Octicons name="lock" size={24} color="#DADADA" />}
             />
             {/*------*/}
+
             {/*Mantener conectado - olvido su contraseña*/}
-            <View style={styles.mantenerConectadoView}>
-              <View style = {{display: 'flex', flexDirection : 'row', }}>
-                <Text
-                  style={styles.mantenerConectadoView.mantenerConectadoText}
+           
+           {/* -------- Contenedor padre de Mantener conectado y olvido su contrasenia ------- */}
+            <View
+              style={{
+                width: "100%",
+                height: "4.05%",
+                marginLeft: "3.1%",
+              }}
+            >
+              <View style={styles.mantenerConectadoView}>
+                <View
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    width: "55.72%",
+                  }}
                 >
-                  Mantener Conectado
+                  <Text
+                    style={styles.mantenerConectadoView.mantenerConectadoText}
+                  >
+                    Mantener Conectado
+                  </Text>
                   <Switch
                     value={open}
                     onValueChange={setOpen}
                     color={green4()}
+                    style={{ height: 10 }}
                   />
+                </View>
+
+                <Text
+                  style={
+                    styles.mantenerConectadoView.olvidasteTuContraseniaText
+                  }
+                >
+                  Olvidaste tu contraseña?
                 </Text>
               </View>
-              <Text
-                style={styles.mantenerConectadoView.olvidasteTuContraseniaText}
-              >
-                Olvidaste tu contraseña?
-              </Text>
             </View>
+
+            
           </View>
         </View>
-        {/*----------------------------------------------- */}
       </View>
+      {/*----------------------------------------------- */}
     </>
   );
 };
 
-const { interRegular, interMedium, green4 } = GlobalStyles();
+const { interRegular, interMedium, green1, green2, green4 } = GlobalStyles();
 
 const styles = StyleSheet.create({
   //pixel size : 393 x 830
@@ -112,21 +135,24 @@ const styles = StyleSheet.create({
       display: "flex",
     },
   },
-
+  //Crear responsive  font-size
   mantenerConectadoView: {
-    width: "100%",
-    height: "4.05%",
+    width: "96.5%",
+    height: "100%",
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-between",
-    
+    alignItems: "center",
+    //backgroundColor : 'blue',
+
     mantenerConectadoText: {
       fontFamily: interRegular().fontFamily,
       fontSize: 8,
+      color: green2(),
     },
     olvidasteTuContraseniaText: {
       fontFamily: interMedium().fontFamily,
-      fontSize: 8,
+      fontSize: 10,
+      color: green1(),
     },
   },
 });

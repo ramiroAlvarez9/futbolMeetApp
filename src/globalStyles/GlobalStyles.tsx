@@ -15,8 +15,6 @@ export default function GlobalStyles() {
         green2: "#469B4C",
         green3: "#7CB855",
         green4: "#BBE06C"
-
-
     }
 
     //-----------
