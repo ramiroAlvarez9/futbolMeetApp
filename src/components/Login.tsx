@@ -6,7 +6,7 @@ import GlobalStyles from "../globalStyles/GlobalStyles";
 import { StyleSheet, View, Text } from "react-native";
 import BackgroundLogin from "../assets/svgImages/backgroundImageLogin.svg";
 import LogoFutMatch from "../assets/svgImages/LogoFutbolMatch.svg";
-import { Input, Switch } from "@rneui/themed";
+import { Input, Switch, Button } from "@rneui/themed";
 
 const Login: React.FC = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -56,8 +56,8 @@ const Login: React.FC = () => {
             {/*------*/}
 
             {/*Mantener conectado - olvido su contraseña*/}
-           
-           {/* -------- Contenedor padre de Mantener conectado y olvido su contrasenia ------- */}
+
+            {/* -------- Contenedor padre de Mantener conectado y olvido su contrasenia ------- */}
             <View
               style={{
                 width: "100%",
@@ -65,6 +65,8 @@ const Login: React.FC = () => {
                 marginLeft: "3.1%",
               }}
             >
+              {/* --------------- */}
+
               <View style={styles.mantenerConectadoView}>
                 <View
                   style={{
@@ -95,12 +97,30 @@ const Login: React.FC = () => {
                 </Text>
               </View>
             </View>
+            {/* Boton iniciar sesion*/}
+            <View style={styles.buttonContainer}>
 
-            
+              <Button
+                title="Log in"
+                loading={false}
+                loadingProps={{ size: "small", color: "white" }}
+                buttonStyle={{
+                  backgroundColor: "rgba(111, 202, 186, 1)",
+                  borderRadius: 5,
+                }}
+                titleStyle={{ fontWeight: "bold", fontSize: 23 }}
+                containerStyle={{
+                  marginHorizontal: 50,
+                  height: 50,
+                  width: 200,
+                  marginVertical: 10,
+                }}
+                onPress={() => console.log("aye")}
+              />
+            </View>
           </View>
         </View>
       </View>
-      {/*----------------------------------------------- */}
     </>
   );
 };
@@ -113,29 +133,35 @@ const styles = StyleSheet.create({
     position: "absolute",
     zIndex: -1,
   },
-
+  //Container general
   fatherView: {
     width: "100%",
     height: "100%",
   },
+  //Container del logo
   logoView: {
     height: "25.59%",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
   },
+  //Container de los inputs
   inputsAndSubmitButtonView: {
     height: " 52.61%",
     display: "flex",
     alignItems: "center",
+    backgroundColor: "green",
 
     inputsSubmitContainer: {
       width: "70%",
       height: "100%",
       display: "flex",
+      backgroundColor: "blue",
     },
   },
   //Crear responsive  font-size
+
+  //Container de mantener conectado y olvide su contrasenia
   mantenerConectadoView: {
     width: "96.5%",
     height: "100%",
@@ -153,8 +179,12 @@ const styles = StyleSheet.create({
       fontFamily: interMedium().fontFamily,
       fontSize: 10,
       color: green1(),
-    },
+    }, 
   },
+  buttonContainer : {
+    backgroundColor : 'red',
+    display: 'flex',
+  }
 });
 
 export default Login;
