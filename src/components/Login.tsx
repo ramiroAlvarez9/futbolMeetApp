@@ -6,10 +6,29 @@ import GlobalStyles from "../globalStyles/GlobalStyles";
 import { StyleSheet, View, Text } from "react-native";
 import BackgroundLogin from "../assets/svgImages/backgroundImageLogin.svg";
 import LogoFutMatch from "../assets/svgImages/LogoFutbolMatch.svg";
-import { Input, Switch, Button } from "@rneui/themed";
+import GoogleSVGIcon from "../assets/svgImages/googleIconSVG.svg";
+import InstagramSVGIcon from "../assets/svgImages/instagramIconSVG.svg";
+import FacebookSVGIcon from "../assets/svgImages/facebookSVGIcon.svg";
+
+import {
+  Input,
+  Switch,
+  Button,
+  SocialIcon,
+  SocialIconProps,
+} from "@rneui/themed";
+
+//Crear responsive  font-size
 
 const Login: React.FC = () => {
   const [open, setOpen] = useState<boolean>(false);
+
+  //393 x 830
+
+  /* 
+  
+      
+  */
 
   return (
     <>
@@ -97,35 +116,91 @@ const Login: React.FC = () => {
                 </Text>
               </View>
             </View>
-            {/* Boton iniciar sesion*/}
-            <View style={styles.buttonContainer}>
 
+            {/* Boton iniciar sesion*/}
+            <View style={styles.buttonContainerView}>
               <Button
-                title="Log in"
+                title="Inicia sesión"
                 loading={false}
-                loadingProps={{ size: "small", color: "white" }}
-                buttonStyle={{
-                  backgroundColor: "rgba(111, 202, 186, 1)",
-                  borderRadius: 5,
-                }}
-                titleStyle={{ fontWeight: "bold", fontSize: 23 }}
-                containerStyle={{
-                  marginHorizontal: 50,
-                  height: 50,
-                  width: 200,
-                  marginVertical: 10,
-                }}
-                onPress={() => console.log("aye")}
+                //loadingProps={{ size: "small", color: "white" }}
+                buttonStyle={styles.buttonStyle}
+                containerStyle={styles.containerStyleButton}
+                titleStyle={styles.titleButtonStyle}
+                //onPress={() => console.log("iniciar sesion")}
               />
             </View>
+            {/* ----------------------*/}
+
+            {/* Registro con redes sociales */}
+
+            <View style={styles.socialMediaContainerView}>
+              <View style={styles.socialMediaTextAndIconsView}>
+                <View style={styles.socialMediaTextContainer}>
+                  <Text style={styles.socialMediaText}>
+                    O registrate usando
+                  </Text>
+                </View>
+
+                <View style={styles.socialMediaIconsContainer}>
+                  <SocialIcon
+                    type={"facebook"}
+                    style={{ width: 32, height: 32 }}
+                    
+                    onPress={() => console.log('facebook')}
+                  />
+                  <SocialIcon
+                    type={"google"}
+                    style={{ width: 32, height: 32 }}
+                    
+                    onPress={() => console.log('google')}
+                  />
+                  <SocialIcon
+                    type={"instagram"}
+                    style={{ width: 32, height: 32 }}
+                    
+                    onPress={() => console.log('ins')}
+                  
+                  />
+                </View>
+              </View>
+            </View>
+
+            {/* ----------------------*/}
           </View>
+
+          {/*Registro manual*/}
+          <View style={styles.registroManualView}>
+            <Text style={styles.registroManualTextRegistrateUsando}>O </Text>
+
+            <Button
+              containerStyle={{
+                width: 200,
+                marginHorizontal: 50,
+                marginVertical: 10,
+              }}
+              title="Crea tu cuenta"
+              type="clear"
+              titleStyle={{ color: green1(), textDecorationLine: "underline" }}
+            />
+          </View>
+
+          {/* ----------------------*/}
         </View>
       </View>
     </>
   );
 };
 
-const { interRegular, interMedium, green1, green2, green4 } = GlobalStyles();
+//STYLES
+const {
+  interRegular,
+  interMedium,
+  green1,
+  green2,
+  green3,
+  green4,
+  globalRadius,
+} = GlobalStyles();
 
 const styles = StyleSheet.create({
   //pixel size : 393 x 830
@@ -145,30 +220,28 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  //Container de los inputs
+  /*Container de mantener conectado y olvide su contrasenia */
+
   inputsAndSubmitButtonView: {
     height: " 52.61%",
     display: "flex",
     alignItems: "center",
-    backgroundColor: "green",
 
     inputsSubmitContainer: {
       width: "70%",
       height: "100%",
       display: "flex",
-      backgroundColor: "blue",
     },
   },
-  //Crear responsive  font-size
+  /*------------------------------------------------*/
 
-  //Container de mantener conectado y olvide su contrasenia
+  /*Container de mantener conectado y olvide su contrasenia */
   mantenerConectadoView: {
     width: "96.5%",
     height: "100%",
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    //backgroundColor : 'blue',
 
     mantenerConectadoText: {
       fontFamily: interRegular().fontFamily,
@@ -179,12 +252,76 @@ const styles = StyleSheet.create({
       fontFamily: interMedium().fontFamily,
       fontSize: 10,
       color: green1(),
-    }, 
+    },
   },
-  buttonContainer : {
-    backgroundColor : 'red',
-    display: 'flex',
-  }
+
+  /*------------------------------------------------*/
+
+  /*Buttons -- button containers */
+  buttonContainerView: {
+    height: "19.37%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-end",
+  },
+  containerStyleButton: {
+    width: "96.68%",
+    height: "50%",
+  },
+  buttonStyle: {
+    borderRadius: globalRadius().borderRadius,
+    fontSize: 12,
+    backgroundColor: green3(),
+  },
+  titleButtonStyle: {
+    fontFamily: interRegular().fontFamily,
+    fontSize: 12,
+  },
+  /*-----------------------------*/
+
+  /*Social media - ingreso con redes sociales */
+  socialMediaContainerView: {
+    height: "18.69%",
+
+    display: "flex",
+    justifyContent: "flex-end",
+    alignItems: "center",
+  },
+
+  socialMediaTextAndIconsView: {
+    //backgroundColor :'red',
+    height: "57.3%",
+    width: "53.07%",
+  },
+  socialMediaTextContainer: {
+    display: "flex",
+    alignItems: "center",
+  },
+  socialMediaText: {
+    fontSize: 12,
+    fontFamily: interRegular().fontFamily,
+    color: "#D9D9D9",
+  },
+  socialMediaIconsContainer: {
+    display: "flex",
+    flexDirection: "row",
+  },
+  /*-----------------------------*/
+
+  /*Registro manual*/
+
+  registroManualView: {
+    marginTop: "5%",
+  },
+  registroManualTextRegistrateUsando: {
+    fontSize: 12,
+    fontFamily: interMedium().fontFamily,
+    color: "black",
+    textAlign: "center",
+  },
+  registroManualTextCreaTuCuenta: {},
+
+  /*-----------------------------*/
 });
 
 export default Login;

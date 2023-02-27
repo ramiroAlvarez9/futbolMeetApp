@@ -6,8 +6,7 @@ export default function GlobalStyles() {
 
 
     //Global pallete of colors
-    interface paletteColorsTypes 
-        { green1: string, green2: string, green3: string, green4: string }
+    interface paletteColorsTypes { green1: string, green2: string, green3: string, green4: string }
 
     let styles: paletteColorsTypes = {
 
@@ -20,8 +19,9 @@ export default function GlobalStyles() {
     //-----------
 
     //Global general styles
-    const fontStyles = StyleSheet.create({
-        //fontFamily
+    const generalStyles = StyleSheet.create({
+        
+        //fontFamilies
         gloockRegular :{
             fontFamily: 'Gloock-Regular',
         },
@@ -48,22 +48,25 @@ export default function GlobalStyles() {
 
     //Colors
 
-    const green1 = (): string => styles.green1;
-    const green2 = (): string => styles.green2;
-    const green3 = (): string => styles.green3;
-    const green4 = (): string => styles.green4;
+    const green1 = () : string => styles.green1;
+    const green2 = () : string => styles.green2;
+    const green3 = () : string => styles.green3;
+    const green4 = () : string => styles.green4;
     
     //----------------------------------
     
     
     //fonts 
-    const interRegular  = ()  => fontStyles.interRegular;
-    const interMedium = () => fontStyles.interMedium;
-    const interSemiBold = () => fontStyles.interSemiBold;
-    const interBold = () => fontStyles.interBold;
-    const gloockRegular = () => fontStyles.gloockRegular;
+    const interRegular  = () => generalStyles.interRegular;
+    const interMedium   = () => generalStyles.interMedium;
+    const interSemiBold = () => generalStyles.interSemiBold;
+    const interBold     = () => generalStyles.interBold;
+    const gloockRegular = () => generalStyles.gloockRegular;
+    //radius
+    const globalRadius  = () => generalStyles.globalRadius;
 
-    //----------------------------------
+
+   
 
 
 
@@ -78,7 +81,8 @@ export default function GlobalStyles() {
         interMedium,
         interSemiBold,
         interBold,
-        gloockRegular
+        gloockRegular,
+        globalRadius
     }
 
 }
