@@ -1,34 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Octicons from "react-native-vector-icons/Octicons";
 import GlobalStyles from "../globalStyles/GlobalStyles";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, Keyboard } from "react-native";
 import BackgroundLogin from "../assets/svgImages/backgroundImageLogin.svg";
 import LogoFutMatch from "../assets/svgImages/LogoFutbolMatch.svg";
 import GoogleSVGIcon from "../assets/svgImages/googleIconSVG.svg";
 import InstagramSVGIcon from "../assets/svgImages/instagramIconSVG.svg";
 import FacebookSVGIcon from "../assets/svgImages/facebookSVGIcon.svg";
 
-import {
-  Input,
-  Switch,
-  Button,
-  SocialIcon,
-  SocialIconProps,
-} from "@rneui/themed";
+import { Input, Switch, Button, SocialIcon } from "@rneui/themed";
 
-//Crear responsive  font-size
+const Login = () => {
+  const [switchStateIsOpen, setSwitchStateIsOpen] = useState<boolean>(false);
 
-const Login: React.FC = () => {
-  const [open, setOpen] = useState<boolean>(false);
+  const [creaTuCuentaViewVisibility, setCreaTuCuentaViewVisibility] =
+    useState<string>("flex");
 
-  //393 x 830
+  useEffect(() => {
+    const deleteCrearTuCuenta = Keyboard.addListener("keyboardDidShow", () =>
+      setCreaTuCuentaViewVisibility("none")
+    );
+    const mostrarCrearTuCuenta = Keyboard.addListener("keyboardDidHide", () =>
+      setCreaTuCuentaViewVisibility("flex")
+    );
 
-  /* 
-  
-      
-  */
+    return () => {
+      deleteCrearTuCuenta;
+      mostrarCrearTuCuenta;
+    };
+  }, []);
 
   return (
     <>
@@ -44,7 +46,6 @@ const Login: React.FC = () => {
         {/*-------------- */}
 
         {/*INPUTS, SUBMIT BUTTON, SOCIAL NETWORKS CONTAINER*/}
-
         <View style={styles.inputsAndSubmitButtonView}>
           <View style={styles.inputsAndSubmitButtonView.inputsSubmitContainer}>
             {/*Inputs */}
@@ -100,8 +101,8 @@ const Login: React.FC = () => {
                     Mantener Conectado
                   </Text>
                   <Switch
-                    value={open}
-                    onValueChange={setOpen}
+                    value={switchStateIsOpen}
+                    onValueChange={setSwitchStateIsOpen}
                     color={green4()}
                     style={{ height: 10 }}
                   />
@@ -145,21 +146,17 @@ const Login: React.FC = () => {
                   <SocialIcon
                     type={"facebook"}
                     style={{ width: 32, height: 32 }}
-                    
-                    onPress={() => console.log('facebook')}
+                    onPress={() => console.log("facebook")}
                   />
                   <SocialIcon
                     type={"google"}
                     style={{ width: 32, height: 32 }}
-                    
-                    onPress={() => console.log('google')}
+                    onPress={() => console.log("google")}
                   />
                   <SocialIcon
                     type={"instagram"}
                     style={{ width: 32, height: 32 }}
-                    
-                    onPress={() => console.log('ins')}
-                  
+                    onPress={() => console.log("ins")}
                   />
                 </View>
               </View>
@@ -167,25 +164,28 @@ const Login: React.FC = () => {
 
             {/* ----------------------*/}
           </View>
-
-          {/*Registro manual*/}
-          <View style={styles.registroManualView}>
-            <Text style={styles.registroManualTextRegistrateUsando}>O </Text>
-
-            <Button
-              containerStyle={{
-                width: 200,
-                marginHorizontal: 50,
-                marginVertical: 10,
-              }}
-              title="Crea tu cuenta"
-              type="clear"
-              titleStyle={{ color: green1(), textDecorationLine: "underline" }}
-            />
-          </View>
-
-          {/* ----------------------*/}
         </View>
+
+        {/*Registro manual*/}
+
+        <View
+          style={{
+            marginTop: "5%",
+            display: `${creaTuCuentaViewVisibility}`,
+            alignItems: "center",
+          }}
+        >
+          <Text style={styles.registroManualTextRegistrateUsando}>O</Text>
+
+          <Button
+            title="Crea tu cuenta"
+            type="clear"
+            containerStyle={{ width: "38%" }}
+            titleStyle={{ color: green1(), textDecorationLine: "underline" }}
+          />
+        </View>
+
+        {/* ----------------------*/}
       </View>
     </>
   );
@@ -221,7 +221,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   /*Container de mantener conectado y olvide su contrasenia */
-
   inputsAndSubmitButtonView: {
     height: " 52.61%",
     display: "flex",
@@ -238,7 +237,7 @@ const styles = StyleSheet.create({
   /*Container de mantener conectado y olvide su contrasenia */
   mantenerConectadoView: {
     width: "96.5%",
-    height: "100%",
+    height: "130%",
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
@@ -260,13 +259,15 @@ const styles = StyleSheet.create({
   /*Buttons -- button containers */
   buttonContainerView: {
     height: "19.37%",
+    marginTop: "1%",
     display: "flex",
     alignItems: "center",
     justifyContent: "flex-end",
   },
   containerStyleButton: {
     width: "96.68%",
-    height: "50%",
+    //height: "50%",
+    height: 35,
   },
   buttonStyle: {
     borderRadius: globalRadius().borderRadius,
@@ -282,14 +283,12 @@ const styles = StyleSheet.create({
   /*Social media - ingreso con redes sociales */
   socialMediaContainerView: {
     height: "18.69%",
-
     display: "flex",
     justifyContent: "flex-end",
     alignItems: "center",
   },
 
   socialMediaTextAndIconsView: {
-    //backgroundColor :'red',
     height: "57.3%",
     width: "53.07%",
   },
@@ -309,9 +308,10 @@ const styles = StyleSheet.create({
   /*-----------------------------*/
 
   /*Registro manual*/
-
   registroManualView: {
     marginTop: "5%",
+    display: "flex",
+    alignItems: "center",
   },
   registroManualTextRegistrateUsando: {
     fontSize: 12,
