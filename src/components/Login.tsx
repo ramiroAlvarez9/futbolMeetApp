@@ -1,53 +1,33 @@
-import React, { useState, useEffect } from "react";
-
+import React, { useState } from "react";
+import BackgroundLoginComponent from "./LoginComponents/BackgroundLogin";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Octicons from "react-native-vector-icons/Octicons";
 import GlobalStyles from "../globalStyles/GlobalStyles";
-import { StyleSheet, View, Text, Keyboard } from "react-native";
-import BackgroundLogin from "../assets/svgImages/backgroundImageLogin.svg";
-import LogoFutMatch from "../assets/svgImages/LogoFutbolMatch.svg";
-import GoogleSVGIcon from "../assets/svgImages/googleIconSVG.svg";
-import InstagramSVGIcon from "../assets/svgImages/instagramIconSVG.svg";
-import FacebookSVGIcon from "../assets/svgImages/facebookSVGIcon.svg";
-
+import { StyleSheet, View, Text } from "react-native";
 import { Input, Switch, Button, SocialIcon } from "@rneui/themed";
+import LogoFutMatch from "../assets/svgImages/LogoFutbolMatch.svg";
+import RegistroManualComponent from "./LoginComponents/RegistroManual";
 
 const Login = () => {
   const [switchStateIsOpen, setSwitchStateIsOpen] = useState<boolean>(false);
 
-  const [creaTuCuentaViewVisibility, setCreaTuCuentaViewVisibility] =
-    useState<string>("flex");
-
-  useEffect(() => {
-    const deleteCrearTuCuenta = Keyboard.addListener("keyboardDidShow", () =>
-      setCreaTuCuentaViewVisibility("none")
-    );
-    const mostrarCrearTuCuenta = Keyboard.addListener("keyboardDidHide", () =>
-      setCreaTuCuentaViewVisibility("flex")
-    );
-
-    return () => {
-      deleteCrearTuCuenta;
-      mostrarCrearTuCuenta;
-    };
-  }, []);
-
   return (
     <>
-      <View style={styles.backgroundLogin}>
-        <BackgroundLogin />
-      </View>
+      <BackgroundLoginComponent />
 
       <View style={styles.fatherView}>
         {/*LOGO CONTAINER */}
+
         <View style={styles.logoView}>
           <LogoFutMatch width={69} height={69} />
         </View>
+
         {/*-------------- */}
 
         {/*INPUTS, SUBMIT BUTTON, SOCIAL NETWORKS CONTAINER*/}
+
         <View style={styles.inputsAndSubmitButtonView}>
-          <View style={styles.inputsAndSubmitButtonView.inputsSubmitContainer}>
+          <View style={styles.inputsSubmitContainer}>
             {/*Inputs */}
             <View style={{ marginBottom: "11.1%" }}>
               <Input
@@ -113,7 +93,7 @@ const Login = () => {
                     styles.mantenerConectadoView.olvidasteTuContraseniaText
                   }
                 >
-                  Olvidaste tu contraseña?
+                  ¿Olvidaste tu contraseña?
                 </Text>
               </View>
             </View>
@@ -123,11 +103,9 @@ const Login = () => {
               <Button
                 title="Inicia sesión"
                 loading={false}
-                //loadingProps={{ size: "small", color: "white" }}
                 buttonStyle={styles.buttonStyle}
                 containerStyle={styles.containerStyleButton}
                 titleStyle={styles.titleButtonStyle}
-                //onPress={() => console.log("iniciar sesion")}
               />
             </View>
             {/* ----------------------*/}
@@ -166,26 +144,8 @@ const Login = () => {
           </View>
         </View>
 
-        {/*Registro manual*/}
-
-        <View
-          style={{
-            marginTop: "5%",
-            display: `${creaTuCuentaViewVisibility}`,
-            alignItems: "center",
-          }}
-        >
-          <Text style={styles.registroManualTextRegistrateUsando}>O</Text>
-
-          <Button
-            title="Crea tu cuenta"
-            type="clear"
-            containerStyle={{ width: "38%" }}
-            titleStyle={{ color: green1(), textDecorationLine: "underline" }}
-          />
-        </View>
-
-        {/* ----------------------*/}
+        <RegistroManualComponent />
+        
       </View>
     </>
   );
@@ -204,10 +164,7 @@ const {
 
 const styles = StyleSheet.create({
   //pixel size : 393 x 830
-  backgroundLogin: {
-    position: "absolute",
-    zIndex: -1,
-  },
+
   //Container general
   fatherView: {
     width: "100%",
@@ -225,12 +182,12 @@ const styles = StyleSheet.create({
     height: " 52.61%",
     display: "flex",
     alignItems: "center",
+  },
 
-    inputsSubmitContainer: {
-      width: "70%",
-      height: "100%",
-      display: "flex",
-    },
+  inputsSubmitContainer: {
+    width: "70%",
+    height: "100%",
+    display: "flex",
   },
   /*------------------------------------------------*/
 
@@ -266,7 +223,6 @@ const styles = StyleSheet.create({
   },
   containerStyleButton: {
     width: "96.68%",
-    //height: "50%",
     height: 35,
   },
   buttonStyle: {
@@ -313,12 +269,7 @@ const styles = StyleSheet.create({
     display: "flex",
     alignItems: "center",
   },
-  registroManualTextRegistrateUsando: {
-    fontSize: 12,
-    fontFamily: interMedium().fontFamily,
-    color: "black",
-    textAlign: "center",
-  },
+  registroManualTextRegistrateUsando: {},
   registroManualTextCreaTuCuenta: {},
 
   /*-----------------------------*/
