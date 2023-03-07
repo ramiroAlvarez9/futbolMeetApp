@@ -8,7 +8,12 @@ import { Input, Switch, Button, SocialIcon } from "@rneui/themed";
 import LogoFutMatch from "../assets/svgImages/LogoFutbolMatch.svg";
 import RegistroManualComponent from "./LoginComponents/RegistroManual";
 
-const Login = () => {
+interface Props  {
+  navigation : any;
+}
+
+const Login = ( ) => 
+{
   const [switchStateIsOpen, setSwitchStateIsOpen] = useState<boolean>(false);
 
   return (
@@ -144,7 +149,12 @@ const Login = () => {
           </View>
         </View>
 
-        <RegistroManualComponent />
+        <RegistroManualComponent 
+          
+          
+        
+        
+        />
         
       </View>
     </>

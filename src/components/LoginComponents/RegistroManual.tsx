@@ -56,6 +56,7 @@ const RegistroManualComponent = () => {
             borderRadius: globalRadius().borderRadius,
           }}
           titleStyle={{ color: green1(), textDecorationLine: "underline" }}
+         
         />
       </View>
     </View>
