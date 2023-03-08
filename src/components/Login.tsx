@@ -12,7 +12,7 @@ interface Props  {
   navigation : any;
 }
 
-const Login = ( ) => 
+const Login = ({navigation} : Props ) => 
 {
   const [switchStateIsOpen, setSwitchStateIsOpen] = useState<boolean>(false);
 
@@ -151,7 +151,7 @@ const Login = ( ) =>
 
         <RegistroManualComponent 
           
-          
+          navigation = {navigation}
         
         
         />

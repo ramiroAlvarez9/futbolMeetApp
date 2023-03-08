@@ -3,10 +3,13 @@ import { View, Keyboard, Text } from "react-native";
 import { Button } from "@rneui/themed";
 import GlobalStyles from "../../globalStyles/GlobalStyles";
 
+interface Props {
+  navigation: any;
+}
 
-
-const RegistroManualComponent = () => {
-  const [creaTuCuentaViewVisibility, setCreaTuCuentaViewVisibility] = useState<string>("80%");
+const RegistroManualComponent = ({ navigation }: Props) => {
+  const [creaTuCuentaViewVisibility, setCreaTuCuentaViewVisibility] =
+    useState<string>("80%");
 
   useEffect(() => {
     const deleteCrearTuCuenta = Keyboard.addListener("keyboardDidShow", () =>
@@ -29,7 +32,7 @@ const RegistroManualComponent = () => {
         width: "100%",
         top: `${creaTuCuentaViewVisibility}`,
       }}
-    >
+    > 
       <View
         style={{
           marginTop: "5%",
@@ -56,15 +59,16 @@ const RegistroManualComponent = () => {
             borderRadius: globalRadius().borderRadius,
           }}
           titleStyle={{ color: green1(), textDecorationLine: "underline" }}
-         
+          onPress={() =>
+            navigation.navigate('Crea tu cuenta', {name: 'Jane'})
+          }
         />
       </View>
     </View>
   );
 };
 
-
 //STYLES
-const {interMedium, green1, globalRadius } = GlobalStyles();
+const { interMedium, green1, globalRadius } = GlobalStyles();
 
 export default RegistroManualComponent;
