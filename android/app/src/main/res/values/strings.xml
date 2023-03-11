@@ -1,3 +1,5 @@
 <resources>
+    <string name="facebook_app_id">196582962979755</string>
+    <string name="facebook_client_token">5d2c2f0d3d919ec841094c1e84c971e0</string>
     <string name="app_name">lookupFut</string>
 </resources>

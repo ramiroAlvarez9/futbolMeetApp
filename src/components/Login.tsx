@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BackgroundLoginComponent from "./LoginComponents/BackgroundLogin";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Octicons from "react-native-vector-icons/Octicons";
@@ -7,15 +7,84 @@ import { StyleSheet, View, Text } from "react-native";
 import { Input, Switch, Button, SocialIcon } from "@rneui/themed";
 import LogoFutMatch from "../assets/svgImages/LogoFutbolMatch.svg";
 import RegistroManualComponent from "./LoginComponents/RegistroManual";
+import auth from "@react-native-firebase/auth";
+import { LoginManager, AccessToken } from "react-native-fbsdk-next";
+import {
+  GoogleSignin,
+  statusCodes,
+} from "@react-native-google-signin/google-signin";
 
-interface Props  {
-  navigation : any;
+interface Props {
+  navigation: any;
 }
 
-const Login = ({navigation} : Props ) => 
-{
+const Login = ({ navigation }: Props) => {
   const [switchStateIsOpen, setSwitchStateIsOpen] = useState<boolean>(false);
 
+  GoogleSignin.configure({
+    scopes: ["https://www.googleapis.com/auth/drive.readonly"], // what API you want to access on behalf of the user, default is email and profile
+    webClientId: "<FROM DEVELOPER CONSOLE>", // client ID of type WEB for your server (needed to verify user ID and offline access)
+    offlineAccess: true, // if you want to access Google API on behalf of the user FROM YOUR SERVER
+    hostedDomain: "", // specifies a hosted domain restriction
+    forceCodeForRefreshToken: true, // [Android] related to `serverAuthCode`, read the docs link below *.
+    accountName: "", // [Android] specifies an account name on the device that should be used
+    iosClientId: "<FROM DEVELOPER CONSOLE>", // [iOS] if you want to specify the client ID of type iOS (otherwise, it is taken from GoogleService-Info.plist)
+    googleServicePlistPath: "", // [iOS] if you renamed your GoogleService-Info file, new name here, e.g. GoogleService-Info-Staging
+    openIdRealm: "", // [iOS] The OpenID2 realm of the home web server. This allows Google to include the user's OpenID Identifier in the OpenID Connect ID token.
+    profileImageSize: 120, // [iOS] The desired height (and width) of the profile image. Defaults to 120px
+  });
+  GoogleSignin.configure();
+
+  const googleLogin = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+      console.log("user info", userInfo);
+      console.log('usuario logeado')
+    } catch (error: any) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        // user cancelled the login flow
+        console.log(error);
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        // operation (e.g. sign in) is in progress already
+        console.log(error);
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        // play services not available or outdated
+      } else {
+        // some other error happened
+        console.log(error);
+      }
+    }
+  };
+
+  async function onFacebookButtonPress() {
+    // Attempt login with permissions
+    const result = await LoginManager.logInWithPermissions([
+      "public_profile",
+      "email",
+    ]);
+
+    console.log(result);
+
+    if (result.isCancelled) {
+      throw "User cancelled the login process";
+    }
+
+    // Once signed in, get the users AccesToken
+    const data = await AccessToken.getCurrentAccessToken();
+
+    if (!data) {
+      throw "Something went wrong obtaining access token";
+    }
+
+    // Create a Firebase credential with the AccessToken
+    const facebookCredential = auth.FacebookAuthProvider.credential(
+      data.accessToken
+    );
+
+    // Sign-in the user with the credential
+    return auth().signInWithCredential(facebookCredential);
+  }
   return (
     <>
       <BackgroundLoginComponent />
@@ -129,17 +198,25 @@ const Login = ({navigation} : Props ) =>
                   <SocialIcon
                     type={"facebook"}
                     style={{ width: 32, height: 32 }}
-                    onPress={() => console.log("facebook")}
+                    onPress={() =>
+                      onFacebookButtonPress().then(() =>
+                        console.log("Signed in with Facebook!")
+                      )
+                    }
                   />
                   <SocialIcon
                     type={"google"}
                     style={{ width: 32, height: 32 }}
-                    onPress={() => console.log("google")}
+                    onPress={googleLogin}
                   />
                   <SocialIcon
                     type={"instagram"}
                     style={{ width: 32, height: 32 }}
-                    onPress={() => console.log("ins")}
+                    onPress={() =>
+                      onFacebookButtonPress().then(() =>
+                        console.log("Signed in with Facebook!")
+                      )
+                    }
                   />
                 </View>
               </View>
@@ -149,13 +226,7 @@ const Login = ({navigation} : Props ) =>
           </View>
         </View>
 
-        <RegistroManualComponent 
-          
-          navigation = {navigation}
-        
-        
-        />
-        
+        <RegistroManualComponent navigation={navigation} />
       </View>
     </>
   );
