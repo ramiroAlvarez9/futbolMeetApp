@@ -19,8 +19,10 @@ interface Props {
 }
 
 const Login = ({ navigation }: Props) => {
+  
   const [switchStateIsOpen, setSwitchStateIsOpen] = useState<boolean>(false);
 
+  
   GoogleSignin.configure({
     scopes: ["https://www.googleapis.com/auth/drive.readonly"], // what API you want to access on behalf of the user, default is email and profile
     webClientId: "<FROM DEVELOPER CONSOLE>", // client ID of type WEB for your server (needed to verify user ID and offline access)
@@ -33,10 +35,15 @@ const Login = ({ navigation }: Props) => {
     openIdRealm: "", // [iOS] The OpenID2 realm of the home web server. This allows Google to include the user's OpenID Identifier in the OpenID Connect ID token.
     profileImageSize: 120, // [iOS] The desired height (and width) of the profile image. Defaults to 120px
   });
+
   GoogleSignin.configure();
 
+  console.log('render')
+
   const googleLogin = async () => {
+    
     try {
+
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
       console.log("user info", userInfo);
@@ -85,6 +92,29 @@ const Login = ({ navigation }: Props) => {
     // Sign-in the user with the credential
     return auth().signInWithCredential(facebookCredential);
   }
+  /*
+     useEffect(() => {
+    const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
+      setKeyboardStatus('Keyboard Shown');
+    });
+    const hideSubscription = Keyboard.addListener('keyboardDidHide', () => {
+      setKeyboardStatus('Keyboard Hidden');
+    });
+
+    return () => {
+      showSubscription.remove();
+      hideSubscription.remove();
+    };
+
+
+
+
+
+
+  */
+
+
+
   return (
     <>
       <BackgroundLoginComponent />
