@@ -9,7 +9,6 @@ import { Input, Button} from "@rneui/themed";
 import LogoFutMatch from "../assets/svgImages/LogoFutbolMatch.svg";
 
 
-
 const CreaTuCuenta = () => {
   //CREA TU CUENTA
   return (

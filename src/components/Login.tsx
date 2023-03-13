@@ -13,16 +13,20 @@ import {
   GoogleSignin,
   statusCodes,
 } from "@react-native-google-signin/google-signin";
+import Home from "./Home";
 
 interface Props {
   navigation: any;
+
 }
 
-const Login = ({ navigation }: Props) => {
-  
+const Login = ({ navigation}: Props) => {
+
+  type User = any  
+
   const [switchStateIsOpen, setSwitchStateIsOpen] = useState<boolean>(false);
 
-  
+  /*Google Login*/
   GoogleSignin.configure({
     scopes: ["https://www.googleapis.com/auth/drive.readonly"], // what API you want to access on behalf of the user, default is email and profile
     webClientId: "<FROM DEVELOPER CONSOLE>", // client ID of type WEB for your server (needed to verify user ID and offline access)
@@ -38,16 +42,21 @@ const Login = ({ navigation }: Props) => {
 
   GoogleSignin.configure();
 
-  console.log('render')
+  const isSignedIn = async () => {
+    
+    const isSignedIn : boolean = await GoogleSignin.isSignedIn();
+    console.log(isSignedIn);
+  };
 
   const googleLogin = async () => {
-    
     try {
-
       await GoogleSignin.hasPlayServices();
+
       const userInfo = await GoogleSignin.signIn();
-      console.log("user info", userInfo);
-      console.log('usuario logeado')
+
+      isSignedIn();
+     
+      
     } catch (error: any) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         // user cancelled the login flow
@@ -63,7 +72,9 @@ const Login = ({ navigation }: Props) => {
       }
     }
   };
+  /*-------------------------*/
 
+  /* Facebook Login */
   async function onFacebookButtonPress() {
     // Attempt login with permissions
     const result = await LoginManager.logInWithPermissions([
@@ -71,7 +82,7 @@ const Login = ({ navigation }: Props) => {
       "email",
     ]);
 
-    console.log(result);
+  
 
     if (result.isCancelled) {
       throw "User cancelled the login process";
@@ -92,28 +103,7 @@ const Login = ({ navigation }: Props) => {
     // Sign-in the user with the credential
     return auth().signInWithCredential(facebookCredential);
   }
-  /*
-     useEffect(() => {
-    const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
-      setKeyboardStatus('Keyboard Shown');
-    });
-    const hideSubscription = Keyboard.addListener('keyboardDidHide', () => {
-      setKeyboardStatus('Keyboard Hidden');
-    });
-
-    return () => {
-      showSubscription.remove();
-      hideSubscription.remove();
-    };
-
-
-
-
-
-
-  */
-
-
+  /*-------------------------*/
 
   return (
     <>
