@@ -3,14 +3,12 @@ import BackgroundLoginComponent from "./LoginComponents/BackgroundLogin";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Octicons from "react-native-vector-icons/Octicons";
 import Fontisto from "react-native-vector-icons/Fontisto";
-import GlobalStyles from "../globalStyles/GlobalStyles";
+import GlobalStyles from "../globalStylesHooks/GlobalStyles";
 import { StyleSheet, View } from "react-native";
-import { Input, Button} from "@rneui/themed";
+import { Input, Button } from "@rneui/themed";
 import LogoFutMatch from "../assets/svgImages/LogoFutbolMatch.svg";
 
-
-const CreaTuCuenta = () => {
-  //CREA TU CUENTA
+const CreaTuCuenta: React.FC = () => {
   return (
     <>
       <BackgroundLoginComponent />
@@ -29,7 +27,7 @@ const CreaTuCuenta = () => {
         <View style={styles.inputsAndSubmitButtonView}>
           <View style={styles.inputsSubmitContainer}>
             {/*Inputs */}
-            <View >
+            <View>
               <Input
                 placeholder="Correo electronico"
                 inputStyle={{
@@ -37,9 +35,7 @@ const CreaTuCuenta = () => {
                   fontFamily: interRegular().fontFamily,
                   fontSize: 16,
                 }}
-                leftIcon={
-                  <Fontisto name="email" size={24} color="#DADADA" />
-                }
+                leftIcon={<Fontisto name="email" size={24} color="#DADADA" />}
               />
             </View>
 
@@ -51,9 +47,11 @@ const CreaTuCuenta = () => {
                 fontSize: 16,
               }}
               secureTextEntry={true}
-              leftIcon={<Ionicons name="person-outline" size={24} color="#DADADA" />}
+              leftIcon={
+                <Ionicons name="person-outline" size={24} color="#DADADA" />
+              }
             />
-             <Input
+            <Input
               placeholder="Contraseña"
               inputStyle={{
                 height: "11.27%",
@@ -63,7 +61,7 @@ const CreaTuCuenta = () => {
               secureTextEntry={true}
               leftIcon={<Octicons name="lock" size={24} color="#DADADA" />}
             />
-             <Input
+            <Input
               placeholder="Repetir contraseña"
               inputStyle={{
                 height: "11.27%",
@@ -74,8 +72,6 @@ const CreaTuCuenta = () => {
               leftIcon={<Octicons name="lock" size={24} color="#DADADA" />}
             />
             {/*------*/}
-
-            {/*Mantener conectado - olvido su contraseña*/}
 
             {/* -------- Contenedor padre de Mantener conectado y olvido su contrasenia ------- */}
             <View
@@ -90,7 +86,6 @@ const CreaTuCuenta = () => {
 
             {/* Boton iniciar sesion*/}
             <View style={styles.buttonContainerView}>
-
               <Button
                 title="Crear Cuenta"
                 loading={false}

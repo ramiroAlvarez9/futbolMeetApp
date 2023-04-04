@@ -3,11 +3,8 @@ import { StyleSheet } from 'react-native';
 
 
 export default function GlobalStyles() {
-
-
     //Global pallete of colors
     interface paletteColorsTypes { green1: string, green2: string, green3: string, green4: string }
-
     let styles: paletteColorsTypes = {
 
         green1: "#3C6E57",
@@ -16,11 +13,8 @@ export default function GlobalStyles() {
         green4: "#BBE06C"
     }
 
-    //-----------
-
     //Global general styles
     const generalStyles = StyleSheet.create({
-        
         //fontFamilies
         gloockRegular :{
             fontFamily: 'Gloock-Regular',
@@ -41,7 +35,6 @@ export default function GlobalStyles() {
         globalRadius: {
             borderRadius: 13,
         },
-
     })
 
 
@@ -66,10 +59,8 @@ export default function GlobalStyles() {
     const globalRadius  = () => generalStyles.globalRadius;
 
 
-   
 
-
-
+    
 
     //return an object with the above functions 
     return {

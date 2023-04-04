@@ -1,22 +1,27 @@
 import React, { useState, useEffect } from "react";
-import { View, Keyboard, Text } from "react-native";
+import { View, Keyboard, Text, StyleSheet } from "react-native";
 import { Button } from "@rneui/themed";
-import GlobalStyles from "../../globalStyles/GlobalStyles";
+import GlobalStyles from "../../globalStylesHooks/GlobalStyles";
 
 interface Props {
   navigation: any;
 }
 
-const RegistroManualComponent = ({ navigation }: Props) => {
+type DisplayValue = "flex" | "none";
+
+const RegistroManualComponent  = ({ navigation }: Props) => {
+
+
   const [creaTuCuentaViewVisibility, setCreaTuCuentaViewVisibility] =
-    useState<string>("80%");
+  
+  useState<DisplayValue>("flex");
 
   useEffect(() => {
     const deleteCrearTuCuenta = Keyboard.addListener("keyboardDidShow", () =>
-      setCreaTuCuentaViewVisibility("999%")
+      setCreaTuCuentaViewVisibility("none")
     );
     const mostrarCrearTuCuenta = Keyboard.addListener("keyboardDidHide", () =>
-      setCreaTuCuentaViewVisibility("80%")
+      setCreaTuCuentaViewVisibility("flex")
     );
 
     return () => {
@@ -25,21 +30,16 @@ const RegistroManualComponent = ({ navigation }: Props) => {
     };
   }, []);
 
+
+
+  console.log(creaTuCuentaViewVisibility);
   return (
-    <View
-      style={{
-        position: "absolute",
-        width: "100%",
-        top: `${creaTuCuentaViewVisibility}`,
-      }}
-    > 
-      <View
-        style={{
-          marginTop: "5%",
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
+    <View>
+      <View style={{
+            marginTop: "5%",
+            display: `${creaTuCuentaViewVisibility}`,
+            alignItems: "center",
+      }}>
         <Text
           style={{
             fontSize: 12,
@@ -60,7 +60,7 @@ const RegistroManualComponent = ({ navigation }: Props) => {
           }}
           titleStyle={{ color: green1(), textDecorationLine: "underline" }}
           onPress={() =>
-            navigation.navigate('Crea tu cuenta', {name: 'Jane'})
+            navigation.navigate("Crea tu cuenta", { name: "Jane" })
           }
         />
       </View>
@@ -70,5 +70,6 @@ const RegistroManualComponent = ({ navigation }: Props) => {
 
 //STYLES
 const { interMedium, green1, globalRadius } = GlobalStyles();
+
 
 export default RegistroManualComponent;
